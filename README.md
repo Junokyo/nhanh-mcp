@@ -2,6 +2,8 @@
 
 Kết nối Nhanh.vn với Claude AI trong 3 phút. Không cần cài đặt gì, không cần code. Hoạt động trên mọi thiết bị.
 
+> ⚠️ **Repo này là bản stdio cho Claude Desktop (local)**. Bản production (11 tools, remote HTTP, dùng trên mọi thiết bị kể cả web + mobile) là repo **[nhanh-mcp-worker](https://github.com/Junokyo/nhanh-mcp-worker)** deploy trên Cloudflare Worker. Hướng dẫn setup cho người dùng cuối xem tại **[resproxy.io/nhanh/huong-dan](https://resproxy.io/nhanh/huong-dan)**.
+
 ## Bạn sẽ làm được gì?
 
 Mở Claude AI (web, mobile, desktop), gõ tiếng Việt:
@@ -56,7 +58,7 @@ Mở chat mới trên Claude (web/mobile/desktop) → hỏi **"Doanh thu hôm na
 
 ---
 
-## Các tool có sẵn
+## Các tool có sẵn (bản stdio — 6 tools)
 
 | Tool | Chức năng |
 |------|-----------|
@@ -66,6 +68,8 @@ Mở chat mới trên Claude (web/mobile/desktop) → hỏi **"Doanh thu hôm na
 | `get_top_products` | Top sản phẩm bán chạy |
 | `get_inventory` | Xem tồn kho |
 | `get_customers` | Tìm kiếm khách hàng |
+
+> Bản **remote worker** có thêm 5 tool: `get_bills`, `get_bill_list`, `get_product_categories`, `get_internal_categories`, `get_order_sources` (tổng 11). Xem [nhanh-mcp-worker](https://github.com/Junokyo/nhanh-mcp-worker).
 
 ---
 
