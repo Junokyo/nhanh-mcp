@@ -76,7 +76,7 @@ Bạn cần 3 thông tin: **App ID**, **Secret Key**, **Access Token**.
 3. Vào **Danh sách app** → bấm **+ Thêm mới**
 4. Điền:
    - **Tên App**: `MCP Claude` (hoặc tên bất kỳ)
-   - **Redirect URL**: `https://yourdomain.com/callback` (điền domain thật của bạn, hoặc domain bất kỳ)
+   - **Redirect URL**: `https://resproxy.io/nhanh/auth`
 5. Bấm **Lưu**
 6. Bấm vào app vừa tạo → ghi lại **App ID** và **Secret Key**
 
@@ -92,19 +92,18 @@ Bạn cần 3 thông tin: **App ID**, **Secret Key**, **Access Token**.
 Mở trình duyệt (đang đăng nhập Nhanh.vn), dán URL sau vào thanh địa chỉ:
 
 ```
-https://nhanh.vn/oauth?version=2.0&appId=YOUR_APP_ID&returnLink=https://yourdomain.com/callback
+https://nhanh.vn/oauth?version=2.0&appId=YOUR_APP_ID&returnLink=https://resproxy.io/nhanh/auth
 ```
 
-> Thay `YOUR_APP_ID` bằng App ID thật. Thay `yourdomain.com/callback` bằng đúng Redirect URL đã điền ở bước 2.1.
+> Chỉ cần thay `YOUR_APP_ID` bằng App ID thật của bạn.
 
 Bấm Enter → Chọn **toàn bộ quyền** → bấm **Đồng ý**.
 
-Trình duyệt sẽ redirect về URL có dạng:
-```
-https://yourdomain.com/callback?accessCode=XXXXXX
-```
+Trình duyệt sẽ chuyển tới trang **resproxy.io** hiển thị Access Code:
 
-**Copy phần XXXXXX** sau `accessCode=`. Đây là Access Code, chỉ có hiệu lực **10 phút**!
+![Access Code Page](https://img.shields.io/badge/Access_Code-Copy_1_click-blue)
+
+Bấm nút **"Copy Access Code"** để copy. Code chỉ có hiệu lực **10 phút**!
 
 #### 2.4. Đổi Access Code lấy Access Token
 
