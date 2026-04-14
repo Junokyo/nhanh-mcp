@@ -1,193 +1,71 @@
-# Nhanh.vn MCP Server cho Claude
+# Nhanh.vn MCP cho Claude AI
 
-Kết nối Claude AI với Nhanh.vn để hỏi doanh thu, đơn hàng, tồn kho... bằng tiếng Việt, ngay trong chat.
-
-![Claude Desktop demo](https://img.shields.io/badge/Claude_Desktop-Ready-green)
+Kết nối Nhanh.vn với Claude AI trong 3 phút. Không cần cài đặt gì, không cần code. Hoạt động trên mọi thiết bị.
 
 ## Bạn sẽ làm được gì?
 
-Mở Claude Desktop, gõ tiếng Việt bình thường:
+Mở Claude AI (web, mobile, desktop), gõ tiếng Việt:
 
-| Câu hỏi | Claude sẽ trả lời |
-|----------|-------------------|
-| "Doanh thu hôm nay?" | Tổng tiền, số đơn thành công, đơn đang xử lý |
-| "Top 5 sản phẩm bán chạy tuần này?" | Xếp hạng theo số lượng bán |
+| Câu hỏi | Claude trả lời |
+|----------|----------------|
+| "Doanh thu hôm nay?" | Tổng tiền, số đơn thành công, phân tích tỷ lệ hủy |
+| "Top 5 sản phẩm bán chạy tuần này?" | Xếp hạng theo số lượng + doanh thu |
 | "Tồn kho sản phẩm X?" | Số lượng còn, giá bán |
 | "Tìm khách hàng tên Linh" | Tên, SĐT, email, tổng đơn |
-| "So sánh doanh thu tuần này vs tuần trước" | Bảng so sánh chi tiết |
-| "Token còn hạn không?" | Ngày hết hạn token |
+| "So sánh doanh thu tuần này vs tuần trước" | Bảng so sánh + nhận xét |
 
 ---
 
-## Hướng dẫn cài đặt (từng bước, cho người chưa biết code)
+## Setup (3 phút, cho sếp chưa biết code)
 
-### Bước 0: Cài phần mềm cần thiết
+### Bước 1: Tạo App trên Nhanh.vn
 
-Bạn cần cài 3 thứ trước (nếu chưa có):
-
-#### 0.1. Cài Node.js
-
-1. Vào https://nodejs.org
-2. Bấm nút **Download** (chọn bản LTS)
-3. Mở file vừa tải → bấm **Next → Next → Install → Finish**
-4. Kiểm tra: mở **Command Prompt** (gõ `cmd` trong Start Menu), gõ:
-   ```
-   node --version
-   ```
-   Nếu hiện `v20.x.x` hoặc `v22.x.x` là OK.
-
-#### 0.2. Cài Git
-
-1. Vào https://git-scm.com/downloads/win
-2. Tải bản **64-bit Git for Windows Setup**
-3. Mở file → bấm **Next** liên tục → **Install → Finish**
-
-#### 0.3. Cài Claude Desktop
-
-1. Vào https://claude.ai/download
-2. Tải bản Windows → cài đặt
-3. Đăng nhập bằng tài khoản Claude (cần gói **Pro** hoặc **Max**)
-
----
-
-### Bước 1: Tải code về máy
-
-Mở **Command Prompt** (gõ `cmd` trong Start Menu), chạy lần lượt:
-
-```
-cd %USERPROFILE%\Desktop
-git clone https://github.com/Junokyo/nhanh-mcp.git
-cd nhanh-mcp
-npm install
-```
-
-Chờ 10-30 giây cho nó cài xong. Khi thấy dòng `added ... packages` là OK.
-
----
-
-### Bước 2: Lấy credentials từ Nhanh.vn
-
-Bạn cần 3 thông tin: **App ID**, **Secret Key**, **Access Token**.
-
-#### 2.1. Tạo App developer
-
-1. Mở trình duyệt, vào https://open.nhanh.vn
-2. Đăng ký tài khoản developer (nếu chưa có)
-3. Vào **Danh sách app** → bấm **+ Thêm mới**
-4. Điền:
-   - **Tên App**: `MCP Claude` (hoặc tên bất kỳ)
+1. Mở https://open.nhanh.vn → Đăng ký tài khoản developer (nếu chưa có)
+2. Vào **Danh sách app** → bấm **+ Thêm mới**
+3. Điền:
+   - **Tên App**: `Claude AI` (hoặc gì cũng được)
    - **Redirect URL**: `https://resproxy.io/nhanh/auth`
-5. Bấm **Lưu**
-6. Bấm vào app vừa tạo → ghi lại **App ID** và **Secret Key**
+4. Bấm **Lưu** → bấm vào app vừa tạo → ghi lại **App ID** và **Secret Key**
 
-#### 2.2. Bật Open API trên Nhanh.vn
+### Bước 2: Bật Open API trên Nhanh.vn
 
-1. Đăng nhập Nhanh.vn bằng **tài khoản Giám đốc** (tài khoản có quyền cao nhất)
+1. Đăng nhập **Nhanh.vn** bằng **tài khoản Giám đốc**
 2. Vào **Cài đặt chung** → **Cài đặt Open API**
-3. Bật **"Cho phép kết nối Open API"**
-4. Lưu lại
+3. Bật **"Cho phép kết nối Open API"** → Lưu
 
-#### 2.3. Lấy Access Code
+### Bước 3: Chạy Setup Wizard
 
-Mở trình duyệt (đang đăng nhập Nhanh.vn), dán URL sau vào thanh địa chỉ:
+1. Mở https://resproxy.io/nhanh
+2. Nhập **App ID** (lấy ở bước 1) → bấm **Bắt đầu Setup**
+3. Nhanh.vn sẽ hỏi cấp quyền → **chọn toàn bộ quyền** → bấm **Đồng ý**
+4. Hệ thống redirect về trang `/nhanh/auth` → nhập **Secret Key** → bấm **Đổi lấy Access Token**
+5. Nhận **Connector URL** → bấm **Copy**
 
-```
-https://nhanh.vn/oauth?version=2.0&appId=YOUR_APP_ID&returnLink=https://resproxy.io/nhanh/auth
-```
+### Bước 4: Thêm vào Claude.ai
 
-> Chỉ cần thay `YOUR_APP_ID` bằng App ID thật của bạn.
+1. Mở https://claude.ai → **Settings** → **Connectors**
+2. Bấm **Add custom connector**
+3. Điền:
+   - **Name**: `Nhanh.vn`
+   - **URL**: dán URL đã copy ở bước 3
+4. Bấm **Add**
 
-Bấm Enter → Chọn **toàn bộ quyền** → bấm **Đồng ý**.
+### Bước 5: Sử dụng
 
-Trình duyệt sẽ chuyển tới trang **resproxy.io** hiển thị Access Code:
-
-![Access Code Page](https://img.shields.io/badge/Access_Code-Copy_1_click-blue)
-
-Bấm nút **"Copy Access Code"** để copy. Code chỉ có hiệu lực **10 phút**!
-
-#### 2.4. Đổi Access Code lấy Access Token
-
-Mở **Command Prompt**, chạy lệnh sau (thay 3 giá trị YOUR_...):
-
-```
-curl --location "https://pos.open.nhanh.vn/v3.0/app/getaccesstoken?appId=YOUR_APP_ID" --header "Content-Type: application/json" --data "{\"accessCode\": \"YOUR_ACCESS_CODE\", \"secretKey\": \"YOUR_SECRET_KEY\"}"
-```
-
-Kết quả trả về dạng:
-```json
-{
-  "code": 1,
-  "data": {
-    "accessToken": "abc123...",
-    "businessId": 123456,
-    "expiredAt": 1807705640
-  }
-}
-```
-
-Ghi lại **accessToken** và **businessId**.
-
-> Token có hạn 1 năm. Khi hết hạn, làm lại từ bước 2.3.
+Mở chat mới trên Claude (web/mobile/desktop) → hỏi **"Doanh thu hôm nay?"** → Enjoy!
 
 ---
 
-### Bước 3: Kết nối vào Claude Desktop
+## Các tool có sẵn
 
-#### 3.1. Mở file config
-
-Bấm tổ hợp phím **Windows + R**, dán đường dẫn sau rồi bấm Enter:
-
-```
-%APPDATA%\Claude\claude_desktop_config.json
-```
-
-Nếu hỏi mở bằng gì → chọn **Notepad**.
-
-#### 3.2. Dán nội dung config
-
-Xóa hết nội dung cũ, dán đoạn sau (thay 3 giá trị `...`):
-
-```json
-{
-  "mcpServers": {
-    "nhanh-vn": {
-      "command": "node",
-      "args": ["C:\\Users\\TEN_USER\\Desktop\\nhanh-mcp\\index.js"],
-      "env": {
-        "NHANH_ACCESS_TOKEN": "access_token_tu_buoc_2",
-        "NHANH_APP_ID": "app_id_tu_buoc_2",
-        "NHANH_BUSINESS_ID": "business_id_tu_buoc_2"
-      }
-    }
-  }
-}
-```
-
-> **Quan trọng**: Thay `TEN_USER` bằng tên user Windows của bạn. Ví dụ máy bạn là `Admin` thì đường dẫn sẽ là `C:\\Users\\Admin\\Desktop\\nhanh-mcp\\index.js`.
->
-> Để biết tên user: mở Command Prompt, gõ `echo %USERNAME%`.
-
-Bấm **Ctrl + S** để lưu.
-
-#### 3.3. Khởi động lại Claude Desktop
-
-1. Nhìn góc dưới phải màn hình (system tray) → click phải vào icon Claude → **Quit**
-2. Mở lại Claude Desktop từ Start Menu
-3. Vào **Settings** → **Developer** → kiểm tra `nhanh-vn` hiện **running** (badge xanh)
-
----
-
-### Bước 4: Dùng thôi!
-
-Mở chat trong Claude Desktop, hỏi bằng tiếng Việt:
-
-- "Doanh thu hôm nay bao nhiêu?"
-- "Top 10 sản phẩm bán chạy từ 01/04 đến hôm nay?"
-- "Tồn kho sản phẩm nào dưới 10?"
-- "Tìm khách hàng số điện thoại 0912xxx"
-- "Token Nhanh.vn còn hạn không?"
-
-Claude sẽ tự động gọi API Nhanh.vn và trả kết quả cho bạn.
+| Tool | Chức năng |
+|------|-----------|
+| `check_token` | Kiểm tra token còn hạn không |
+| `get_orders` | Danh sách đơn hàng theo ngày/trạng thái |
+| `get_revenue_report` | Tính doanh thu theo khoảng thời gian |
+| `get_top_products` | Top sản phẩm bán chạy |
+| `get_inventory` | Xem tồn kho |
+| `get_customers` | Tìm kiếm khách hàng |
 
 ---
 
@@ -195,37 +73,66 @@ Claude sẽ tự động gọi API Nhanh.vn và trả kết quả cho bạn.
 
 | Lỗi | Nguyên nhân | Cách sửa |
 |-----|-------------|----------|
-| Server không hiện trong Settings > Developer | Đường dẫn file sai | Kiểm tra lại đường dẫn trong config, phải dùng `\\` thay vì `\` |
-| Badge đỏ (error) | Node.js chưa cài hoặc thiếu packages | Mở cmd, chạy `cd Desktop\nhanh-mcp` rồi `npm install` |
-| "Invalid accessToken" | Token sai hoặc hết hạn | Lấy lại token theo bước 2.3 - 2.4 |
-| "Business not enable API" | Chưa bật Open API | Làm lại bước 2.2 |
-| Doanh thu hiện 0 | Không có đơn thành công trong khoảng thời gian đó | Thử hỏi khoảng ngày khác |
-| "node is not recognized" | Chưa cài Node.js | Cài Node.js theo bước 0.1, restart máy |
+| "Invalid redirect URL" khi tạo app | Redirect URL phải HTTPS đúng cú pháp | Dùng chính xác `https://resproxy.io/nhanh/auth` |
+| "ERR_BUSINESS_NOT_ENABLE_API" | Chưa bật Open API | Làm lại Bước 2 |
+| "Invalid accessCode" sau 10 phút | Access Code hết hạn | Mở lại https://resproxy.io/nhanh, bắt đầu lại |
+| "Invalid accessToken" | Token hết hạn hoặc sai | Làm lại setup để lấy token mới |
+| Claude không gọi tool | Connector chưa enable | Settings → Connectors → Nhanh.vn → Configure → bật tools |
 
 ---
 
-## Câu hỏi thường gặp
+## FAQ
 
-**Q: Có mất phí gì không?**
-A: Bản thân tool này miễn phí. Bạn cần tài khoản Claude Pro/Max (có phí) và tài khoản Nhanh.vn (có sẵn).
+**Q: Có mất phí không?**
+A: Miễn phí. Bạn chỉ cần tài khoản Claude (Pro/Max có phí riêng của Anthropic) và tài khoản Nhanh.vn.
 
 **Q: Dữ liệu có an toàn không?**
-A: Token chỉ lưu trên máy bạn (trong file config). Dữ liệu đi thẳng từ máy bạn → Nhanh.vn, không qua server trung gian.
+A: Token được mã hóa trong URL connector, lưu trên tài khoản Claude của bạn. Server xử lý trên Cloudflare Workers, không lưu token ở đâu cả.
 
 **Q: Token hết hạn thì sao?**
-A: Token có hạn 1 năm. Khi hết, làm lại bước 2.3 - 2.4 để lấy token mới, rồi cập nhật vào file config.
+A: Token có hạn 1 năm. Khi hết, làm lại từ Bước 3 để lấy token mới, update vào Claude Connector.
 
-**Q: Dùng trên Mac được không?**
-A: Được. Thay đường dẫn trong config thành `/Users/TEN_USER/Desktop/nhanh-mcp/index.js`. File config Mac nằm ở `~/Library/Application Support/Claude/claude_desktop_config.json`.
+**Q: Một tài khoản Claude có thể thêm nhiều shop Nhanh.vn không?**
+A: Được. Add nhiều Connector, mỗi cái đặt tên khác nhau (Nhanh.vn Shop A, Nhanh.vn Shop B...).
 
-**Q: Nhiều người cùng dùng được không?**
-A: Mỗi máy cài riêng, dùng chung hoặc riêng token đều được. Nếu dùng chung token thì lưu ý rate limit (150 request / 30 giây).
+**Q: Nhiều nhân viên cùng dùng được không?**
+A: Mỗi người tự login Claude và tự add Connector với token riêng của họ. Claude connector lưu theo tài khoản, không chia sẻ được.
+
+**Q: Dùng offline được không?**
+A: Không. Cần internet để Claude gọi API Nhanh.vn.
 
 ---
 
-## Thông tin kỹ thuật
+## Kiến trúc (cho dev)
 
-- **API**: Nhanh.vn Open API v3.0
-- **Protocol**: MCP (Model Context Protocol)
-- **Runtime**: Node.js 20+
-- **Dependencies**: @modelcontextprotocol/sdk, axios, zod, dotenv
+```
+Claude AI
+  ↓ HTTPS
+Cloudflare Worker (nhanh-mcp.junokyo7.workers.dev)
+  ↓ HTTPS + Auth
+Nhanh.vn API v3.0
+```
+
+- **Frontend wizard**: Next.js tại `resproxy.io/nhanh` + `/nhanh/auth`
+- **MCP Server**: Cloudflare Workers, JSON-RPC 2.0 over HTTP
+- **Credentials**: passed via URL query params `?token=&appId=&businessId=`
+
+### Dev local
+
+```bash
+git clone https://github.com/Junokyo/nhanh-mcp.git
+cd nhanh-mcp
+npm install
+# Chạy local với stdio transport (cho Claude Desktop)
+node index.js
+```
+
+File `index.js` trong repo này là bản **local/stdio** cho Claude Desktop.
+Remote worker source: không public (deploy từ máy owner).
+
+---
+
+## Liên hệ
+
+- GitHub: https://github.com/Junokyo/nhanh-mcp
+- Issues: https://github.com/Junokyo/nhanh-mcp/issues
